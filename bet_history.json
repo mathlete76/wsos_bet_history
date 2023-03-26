@@ -1,0 +1,323 @@
+{
+  "version": "0.1.0",
+  "name": "bet_history",
+  "instructions": [
+    {
+      "name": "initRecords",
+      "accounts": [
+        {
+          "name": "recordsAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "genesisBetAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "signupUser",
+      "accounts": [
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "updateUser",
+      "accounts": [
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "createBet",
+      "accounts": [
+        {
+          "name": "betAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "recordsAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "fixture",
+          "type": "string"
+        },
+        {
+          "name": "market",
+          "type": "string"
+        },
+        {
+          "name": "odds",
+          "type": "f32"
+        },
+        {
+          "name": "stake",
+          "type": "f32"
+        }
+      ]
+    },
+    {
+      "name": "updateBet",
+      "accounts": [
+        {
+          "name": "betAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "betId",
+          "type": "publicKey"
+        },
+        {
+          "name": "outcome",
+          "type": {
+            "defined": "BetResult"
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteBet",
+      "accounts": [
+        {
+          "name": "betAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nextBetAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deleteLatestBet",
+      "accounts": [
+        {
+          "name": "betAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "recordsAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "RecordsState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "publicKey"
+          },
+          {
+            "name": "currentBetKey",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BetState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "fixture",
+            "type": "string"
+          },
+          {
+            "name": "market",
+            "type": "string"
+          },
+          {
+            "name": "odds",
+            "type": "f32"
+          },
+          {
+            "name": "stake",
+            "type": "f32"
+          },
+          {
+            "name": "outcome",
+            "type": "string"
+          },
+          {
+            "name": "profit",
+            "type": "f32"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "preBetKey",
+            "type": "publicKey"
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "BetResult",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Win"
+          },
+          {
+            "name": "Lose"
+          },
+          {
+            "name": "Pending"
+          },
+          {
+            "name": "Void"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "BetEvent",
+      "fields": [
+        {
+          "name": "label",
+          "type": "string",
+          "index": false
+        },
+        {
+          "name": "betId",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "nextBetId",
+          "type": {
+            "option": "publicKey"
+          },
+          "index": false
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "address": "8o89hDYfJVEDGT87VcxENnNwxUe3nYgvN1dG3pC7XbB1"
+  }
+}
