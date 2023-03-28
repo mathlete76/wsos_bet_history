@@ -26,7 +26,12 @@
           "isSigner": false
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "signupUser",
@@ -34,7 +39,7 @@
         {
           "name": "userAccount",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "authority",
@@ -199,6 +204,10 @@
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
           {
             "name": "authority",
             "type": "publicKey"

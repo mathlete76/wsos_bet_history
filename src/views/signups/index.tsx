@@ -5,7 +5,7 @@ import { Records } from '../../components/Records';
 
 
 
-export const BasicsView: FC = ({ }) => {
+export const SignUpsView: FC = ({ }) => {
 
   return (
     <div className="md:hero mx-auto p-4">

@@ -19,7 +19,7 @@ export const RequestAirdrop: FC = () => {
         let signature: TransactionSignature = '';
 
         try {
-            signature = await connection.requestAirdrop(publicKey, LAMPORTS_PER_SOL);
+            signature = await connection.requestAirdrop(publicKey, 2 * LAMPORTS_PER_SOL);
 
             // Get the lates block hash to use on our transaction and confirmation
             let latestBlockhash = await connection.getLatestBlockhash()
@@ -45,7 +45,7 @@ export const RequestAirdrop: FC = () => {
                             className="px-8 m-2 btn animate-pulse bg-gradient-to-br from-indigo-500 to-fuchsia-500 hover:from-white hover:to-purple-300 text-black"
                             onClick={onClick}
                             >
-                                <span>Airdrop 1 </span>
+                                <span>Airdrop 2 </span>
                 
                         </button>
                 </div>
